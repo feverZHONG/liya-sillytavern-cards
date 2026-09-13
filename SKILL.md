@@ -46,14 +46,14 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 
 一个角色一个目录，目录里放：
 
-| 文件 | 内容 | 进卡位置 |
+| 文件（示范路径） | 内容 | 进卡位置 |
 |------|------|---------|
-| `IDENTITY.md` | `Name` + `Vibe`（一句话定位） | `name` + PList Personality 首标签 |
-| `persona-soul.md` | 第一人称自述：我是谁 / 怎么说话 / 核心 / 底线 | PList `Setting=` + Ali:Chat 素材 |
-| `AGENTS.md` | 互动手册：核心指令 / 说话风格 / 示例 / 性格锚点 / 对话节奏 / 禁止 / 边界 | PList Personality 锚点 + `system_prompt` + `post_history_instructions` |
-| `外观.md`（可选） | 外观特征，一行一条 | PList `body=` |
+| `examples/白棠/IDENTITY.md` | `Name` + `Vibe`（一句话定位） | `name` + PList Personality 首标签 |
+| `examples/白棠/persona-soul.md` | 第一人称自述：我是谁 / 怎么说话 / 核心 / 底线 | PList `Setting=` + Ali:Chat 素材 |
+| `examples/白棠/AGENTS.md` | 互动手册：核心指令 / 说话风格 / 示例 / 性格锚点 / 对话节奏 / 禁止 / 边界 | PList Personality 锚点 + `system_prompt` + `post_history_instructions` |
+| `examples/白棠/外观.md`（可选） | 外观特征，一行一条 | PList `body=` |
 
-完整范例见 `examples/白棠/`（原创演示角色，从资料到成品卡全流程走通）。
+完整范例见 `examples/白棠-卡.json`（成品卡）与 `references/11-worked-example.md`（走查）——原创演示角色，从资料到成品卡全流程走通。
 
 **默认值**：脚本支持 `--src/--out/--genre/--tags/--creator` 显式传参；也可以放一份配置文件（`$TAVERN_CARDS_CONFIG` 或 `~/.config/tavern-cards.json`），省得每次敲。
 
@@ -94,5 +94,5 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 
 ## 关联
 
-- **分界**：「给 AI 助手写它自己的人格文件」是另一条线（规则相反），见 `references/scope-and-boundaries.md`
+- **分界**：「给 AI 助手写它自己的人格文件」是另一条线（规则相反）——分界文档见 <https://github.com/feverZHONG/liya-persona-authoring>（本仓库也随带一份，即 references 里的 scope-and-boundaries）
 - 角色客观档案（资料整理，不写卡）：另一类活，别混

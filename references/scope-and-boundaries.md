@@ -38,6 +38,6 @@
 - **角色设定写作模板 v1.2**（fever钟，B站 cv47543229）
   本地：`skills/sillytavern-cards/references/10-setting-writing-template.md`
   公开仓库：<https://github.com/feverZHONG/liya-persona-authoring> → `references/setting-writing-template.md`
-- 酒馆写卡与精修：`sillytavern-cards` / `tavern-card-refinement`
+- 酒馆写卡（公开仓库 <https://github.com/feverZHONG/liya-sillytavern-cards>，本机 skill `sillytavern-cards`）与精修：`tavern-card-refinement`
 - 客观角色档案：`chara-profile`
 - 本 skill 自己的减法流程：`references/identity-file-debloat.md`
