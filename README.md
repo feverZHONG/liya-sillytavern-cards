@@ -105,6 +105,7 @@ python3 scripts/embed_tavern_card.py 你的卡.json avatar.png card.png
 
 - [liya-persona-authoring](https://github.com/feverZHONG/liya-persona-authoring) —— 给 AI agent 写它**自己**的身份文件（跟本仓库规则相反，别混用，见 `references/scope-and-boundaries.md`）
 - [liya-subtraction-skill](https://github.com/feverZHONG/liya-subtraction-skill) —— 技能库精简与维护
+- [liya-vision-recognition-traps](https://github.com/feverZHONG/liya-vision-recognition-traps) —— 视觉模型识图陷阱：19 条实测陷阱 + 真 OCR 通道 + AI 生图物理体检 + 两图差分
 
 ## 提思路 / 提修正
 
