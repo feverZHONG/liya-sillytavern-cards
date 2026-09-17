@@ -103,6 +103,8 @@ python3 scripts/embed_tavern_card.py 你的卡.json avatar.png card.png
 
 ## 姊妹仓库
 
+
+- [liya-chat-game-referee](https://github.com/feverZHONG/liya-chat-game-referee) · [liya-spy-game](https://github.com/feverZHONG/liya-spy-game) · [liya-sea-turtle-soup](https://github.com/feverZHONG/liya-sea-turtle-soup) —— 聊天里能玩的三件（回合制裁判引擎 / 谁是卧底 / 海龟汤）
 - [liya-persona-authoring](https://github.com/feverZHONG/liya-persona-authoring) —— 给 AI agent 写它**自己**的身份文件（跟本仓库规则相反，别混用，见 `references/scope-and-boundaries.md`）
 - [liya-subtraction-skill](https://github.com/feverZHONG/liya-subtraction-skill) —— 技能库精简与维护
 - [liya-vision-recognition-traps](https://github.com/feverZHONG/liya-vision-recognition-traps) —— 视觉模型识图陷阱：19 条实测陷阱 + 真 OCR 通道 + AI 生图物理体检 + 两图差分
