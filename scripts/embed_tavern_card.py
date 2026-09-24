@@ -69,6 +69,9 @@ def embed_card(card_json: str, png_bytes: bytes) -> bytes:
 
 def main():
     if len(sys.argv) < 4:
+        if len(sys.argv) > 1 and sys.argv[1] in ("-h", "--help"):
+            print(__doc__)
+            return 0
         print("用法: embed_tavern_card.py <卡.json> <底图.png> <输出.png>")
         return 2
     card_json = open(sys.argv[1], encoding="utf-8").read()

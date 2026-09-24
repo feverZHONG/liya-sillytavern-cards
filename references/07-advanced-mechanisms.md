@@ -11,7 +11,7 @@
 | `probability` + `useProbability` | 触发概率 | 「橘子硬糖」条目 90% 触发，偶尔静默让对话自然 |
 | `group` / `group_weight` / `group_override` / `use_group_scoring` | 包含组 | 「称呼切换」组：待客（叫「先生/小姐」）vs 独处（直呼其名）同组只激活一条 |
 | `sticky` / `cooldown` / `delay` | 定时效果 | 「赶工」条目 sticky=3 保持语境；「旧伤」条目 cooldown 防刷屏 |
-| `selectiveLogic` | 可选过滤逻辑 | 0=AND ANY / 1=AND ALL / 2=NOT ANY / 3=NOT ALL |
+| `selectiveLogic` | 二级键过滤逻辑 | 0=AND_ANY / 1=NOT_ALL / 2=NOT_ANY / 3=AND_ALL（源码枚举 world-info.js:33-38，旧记录写反过） |
 | `depth` + `role` | @D 深度插入 | depth=2 + role=system 保人设永生难忘（白羽法） |
 | `match_whole_words` | 全词匹配 | 中文设 false（不用空格分词会误伤） |
 | `case_sensitive` | 大小写敏感 | 中文设 false |
@@ -24,7 +24,7 @@
 | `match_character_*` / `match_persona_description` | 附加匹配来源 | 用角色描述/性格当触发源 |
 | `display_index` | UI 显示 | 不用管 |
 
-**注意：** 酒馆把 ST keys 一律当正则（`use_regex: true`）。纯文本关键词没问题，但含 `(` `[` `*` 等正则字符时要转义或直接用正则语法。
+**注意（2026-09-16 源码更正）：** 键是不是正则看**字符串形状**——写成 `/pattern/flags` 才当正则（`parseRegexFromString`），否则一律纯文本 `includes()`，含 `(` `[` `*` 也不用转义。卡里顶层 `use_regex: true` 引擎不读。详见 `sillytavern-worldbook/references/12-worldbook-mechanics.md`。
 
 ## 各机制落地写法（可直接抄的 JSON 片段）
 
@@ -97,6 +97,7 @@
 | 提到关键词后语境需要保持几轮 | sticky 粘性 |
 | 同一条目 3 轮内反复触发烦人 | cooldown 冷却 |
 | 世界观复杂到角色卡塞不下 | 全局世界书 + extensions.world 关联 |
+| 同一条目要按角色分流（A 知道 B 不知道） | 独立世界书 + 条目级 `characterFilter`（卡内书做不到） |
 | 需要可塑性/随机惊喜 | 概率/向量化（向量需要扩展，默认关键词） |
 
 ## 原则

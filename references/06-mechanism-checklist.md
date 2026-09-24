@@ -25,7 +25,7 @@
 
 | 机制 | 字段 | 坑 |
 |------|------|-----|
-| **selective 开关** | entry.selective | 写了 secondary_keys 但 selective 默认 false → secondary_keys 被忽略（spec 原文："ignored if selective == false"） |
+| **selective 开关** | entry.selective | ① 不写/false → secondary_keys 整段被忽略（spec："ignored if selective == false"）；② 写了 true → 二级键变成**强制门槛**（默认 AND_ANY：主键且任一二级键），不是可选修饰。只想要「任一词触发」就别写 secondary_keys |
 | **{{original}} 占位** | system_prompt / post_history_instructions | 不写 = 全替换用户全局 system prompt/jailbreak，分享卡会破坏用户自己的设置 |
 
 ### 🟡 该补的（增强质量）
@@ -59,6 +59,8 @@
 ## 坑
 
 - **secondary_keys 必须配 selective=true**，否则白写（spec 明文）
-- **中文世界书关键词**：wiki 建议 `matchWholeWords` 保持关闭（中文不用空格分词，会误伤）
+- **中文世界书关键词**：引擎默认 `match_whole_words = false`（中文 wiki 称「默认启用」，以源码为准）；即便开启，中文字符在 JS 里算 `\W`，单字键仍能命中。条目级要显式写 `extensions.match_whole_words`——顶层字段不生效
+- **卡里 book 级 `scan_depth`/`token_budget`/`recursive_scanning` 是摆设**——引擎无读取点（源码实证），真正生效的是用户侧全局设置；要控就写条目级 `extensions`
+- **位置字段**：卡侧顶层 `position` 只认 before_char/after_char；AN/EM/@D/输出口要写 `extensions.position`（数值枚举 0-7）
 - character_book entries 的 `id` 不用参与 prompt（spec：not used in prompt engineering），只是内部索引
 - constant 条目也受 token_budget 限制——别全设 constant

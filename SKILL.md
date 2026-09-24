@@ -9,6 +9,10 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 > **核心目的：写卡。** 把「一堆角色资料」变成一张 SillyTavern 能用的卡（V2 JSON / PNG 嵌卡）。
 > 不碰酒馆部署/运行。技术口径全部以官方仓库 SillyTavern/SillyTavern 为 ground truth。
 
+## 边界
+
+**只写卡，不跑酒馆。** 本 skill 从头到尾只做一件事：把角色资料变成一张 SillyTavern 能用的卡（V2 JSON / PNG 嵌卡）。酒馆本身的部署、运行、扩展、调试都不在范围内。
+
 ## 触发
 
 酒馆 / SillyTavern / 角色卡 / 写卡 / 精修 / 卡格式 / PList / Ali:Chat
@@ -41,6 +45,7 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 | `make_tavern_card.py <角色名\|角色目录> [--src 根目录] [--out 卡.json]` | 三件套资料 → V2 卡初稿（顶层 V1 双份 + depth_prompt PList 基础版 body→Setting→Personality + 场景块 description + 自动校验）。`<START>` 示例和 first_mes 精修是手写活 |
 | `validate_tavern_card.py <卡.json\|卡.png> [--deep]` | 官方 validator 翻译：V1/V2/V3 识别 + V2 14 必填字段 + PNG 解卡；`--deep` 加写卡质量检查（V2/V3 都查：depth_prompt / first_mes 占位 / 顶层双份 / 【需补充】残留 / `<START>` 块 user-char 复读 / PList 施工注释）；**默认输出 token 统计（累计/恒定，酒馆 UI 同口径）** |
 | `embed_tavern_card.py <卡.json> <底图.png> <输出.png>` | PNG 嵌卡（tEXt `chara`，官方写入同款） |
+| 世界书（机制 / 独立书 / 触发模拟 / 接卡） | `sillytavern-worldbook` skill + `bin/wb` + `tavern world` |
 
 ### 输入格式（工具约定的「三件套」）
 
@@ -91,6 +96,7 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 | 官方源码字段映射（保存/读取逻辑） | `references/tavern-field-mapping.md` |
 | 官方默认卡逆向（一张卡怎么填的官方示范） | `references/seraphina-card-notes.md` |
 | 官方 wiki 写卡核心（字段语义 / 世界书 / 宏 / token） | `references/stwiki-writing-notes.md` |
+| **世界书机制与触发条件（源码实证：触发链 / selective / 扫描深度 / 预算 / 过滤器）** | `sillytavern-worldbook/references/12-worldbook-mechanics.md` |
 
 ## 关联
 
