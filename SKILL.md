@@ -71,7 +71,8 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 4. `validate_tavern_card.py 卡.json --deep` → 必须 ✅ V2（V3 同样跑）
 5. **token 统计**：validate 默认输出「累计/恒定」；酒馆界面实测值可登记进 `extensions.<你的命名空间>.token_stats`
 6. 可选：`embed_tavern_card.py` → PNG 卡
-7. 发布（PNG 或 JSON）
+7. **可用性验收（不装酒馆）**：自己按卡演 3-4 轮最难的输入，再派 1-2 个隔离样本跑固定话术（**必须含多轮追问**）→ 看「哪条规则最难守、哪里停下来权衡」；**两个样本独立指向同一处才是真问题**。流程 → `tavern-card-refinement`「交付前的可用性验收」；写法反模式 → `references/writing-method.md` 末节
+8. 发布（PNG 或 JSON）
 
 **V3 需补充卡流程（模板卡 / 导出卡补全）：**
 
