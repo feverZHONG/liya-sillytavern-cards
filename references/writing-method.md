@@ -8,12 +8,19 @@
 
 | 字段 | 放什么 | token 性质 |
 |------|--------|-----------|
-| `description` | **Ali:Chat 示例对话**（教说话方式/口癖/语气）+ 核心事实 | 永久（但对话久了进第三记忆篮变弱） |
-| `extensions.depth_prompt.prompt` | **PList 属性块**（性格/外观/场景标签） | 永久（第一记忆篮，长对话保人设的关键） |
+| `description` | **角色的身体和精神特征**（`[Personality= …]` ＋ `[body= …]` ＋ `[Genre/Tags]` 锚）——酒馆界面官方口径 | 永久 |
+| `personality` | **角色设定的简要描述**（＝PList 的 `Setting` 行） | 永久 |
+| `scenario` | 交互的情况和背景（位置在 description／personality **之后**，recency 最强） | 永久 |
+| `mes_example` | **`<START>` 对话示例**：ST 解析成 user/assistant **真对话轮次**，且有预算门（挤不下自动丢） | 非永久 |
+| `extensions.depth_prompt.prompt` | **PList 属性块**（性格/外观/场景标签）——深度注入，长对话保人设 | 永久 |
 | `first_mes` | 场景化开场（开局事件+动作描写+对话钩子） | 临时（只发一次，但开局定风格） |
 | `character_book` | 世界书条目（可选） | 按需触发 |
 
-**为什么这么分：** description 里的示例对话定义角色，但对话长了会被挤出有效区；PList 放 `depth_prompt` 后，模型能「拉动」description 里的示例保持相关——长对话不 OOC。
+> ⚠️ **2026-09-26 口径更新**：示例写进 `description` 是**老形状**（官方 Seraphina 示范卡也这么写），但示例搬进 `mes_example` 才拿得到「真对话轮次 ＋ 预算门」两样。逐格去向与搬迁工具 → `tavern-card-refinement` skill「槽位归位」节。
+
+> ✅ **2026-09-27 复核（官方出处）**：官方文档 `usage/core-concepts/characterdesign` 原文——描述「加入角色描述**及其它相关信息**……上下文里永远带着，所以**所有重要事实都放这儿**」，「长度随意（200 或 2000 token）、**格式任意**（自由文本、伪代码对话风格皆可）」；酒馆自带示范卡 `default/content/default_Seraphina.png` 的描述实测＝`[Seraphina's Personality= …]` ＋ `[Seraphina's body= …]` ＋ `<START>` 示例 ＋ `[Genre: …; Tags: …; Scenario: …]` 尾行（拆 PNG `chara` chunk 读的原文）——**PList 标签块进描述合法且有官方出处**，判据是**内容覆盖**不是文体。另：角色设定摘要官方英文名 **Personality summary**（性格简述）；角色备注官方定义＝「在指定深度注入、**通常用来反复强化某些角色特质**」（所以备注收敛成只留 `Personality` 一行正合定义）。**酒馆没有「简介」字段**（zh-cn 语言包零命中「简介」）——社区口语的「角色简介」是卡本体统称，别照这个词去找格子。
+
+**为什么这么分：** 特征放描述框（官方划的位置）、示例放 `mes_example`（真对话轮次 ＋ 预算门）、PList 放 `depth_prompt`（深度注入，长对话保人设）——三处各担一层。
 （白羽记忆理论：Claude 对上下文开头+结尾印象最深、中间偏前记得烂——depth_prompt 深度 2-4 都在结尾区附近，正合适。）
 
 ## PList 写法（进 depth_prompt.prompt）
@@ -30,15 +37,19 @@
 - 第二种写法（分节）：`[角色名 = 外观...; 个性=...; 背景=...]`——也行，PList 没有固定写法，要素简化即可
 - 标签来自：IDENTITY Vibe + AGENTS 性格锚点 + curated 外观特征
 
-## Ali:Chat 写法（进 description）
+## Ali:Chat 写法（示例进 `mes_example`，场景句进 `scenario`）
 
 ```
-[Genre: 世界观; Tags: 关键词; Scenario: 场景设定]  ← 场景块（description 顶部）
-
-<START>
-{{user}}: 「对话」
-{{char}}: *动作描写* 「角色回复，带口癖」  ← 2-3 组，教风格
+description:  [Genre: 世界观; Tags: 关键词]        ← 分类锚
+personality:  设定简述
+scenario:     场景设定                            ← 独立槽，位置比描述更靠后
+mes_example:  <START>
+              {{user}}: 「对话」
+              {{char}}: *动作描写* 「角色回复，带口癖」   ← 2-3 组，教风格
 ```
+
+> 2026-09-26 归位：示例写进 `description` 是**老形状**；`mes_example` 才是 ST 的示例专槽
+> （解析成真对话轮次 ＋ 预算门）。搬迁工具与逐格口径 → `tavern-card-refinement` skill「槽位归位」节。
 
 - 素材来源：角色设定/互动手册里已有的示例；作品语音台词；对话样本
 - 对话要体现：口癖（同一句尾助词反复出现）、句式习惯、语气——示例里就要让口癖自然出现
@@ -54,7 +65,7 @@
 
 ## 其他字段
 
-- `personality` / `scenario`：可留空（内容进 PList/Ali:Chat）
+- `personality` / `scenario`：**不要留空**（2026-09-26 按酒馆界面官方说明改口径）——「角色设定摘要」放设定简述、「情景」放交互背景；空着＝白白少两个永久注入点
 - `system_prompt` / `post_history_instructions`：精简填硬规则（口癖/句式限制/边界）；⚠️ 会替换用户设置，别塞成论文
 - `extensions.talkativeness`：0.5 默认
 - `extensions.world`：关联世界书名（有书才填）

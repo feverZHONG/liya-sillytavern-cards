@@ -128,14 +128,17 @@ def deep_check(card: dict):
 
     # 1b. <START> Ali:Chat 复读检测（2026-08-26：旧脚本把 AGENTS 对照表两列抄成 user/char 对话，
     #     示例变成复读用户——模型学到的是复读。对照表不是对话轮次，user/char 同句=污染示例）
-    desc = data.get("description", "")
-    if isinstance(desc, str) and "<START>" in desc:
-        for i, block in enumerate(desc.split("<START>")[1:], 1):
+    #     2026-09-26：示例可归位到 mes_example（槽位归位），两处都扫
+    for src in ("description", "mes_example"):
+        text = data.get(src, "")
+        if not (isinstance(text, str) and "<START>" in text):
+            continue
+        for i, block in enumerate(text.split("<START>")[1:], 1):
             if "{{user}}" in block and "{{char}}" in block:
                 u = block.split("{{user}}:")[1].split("{{char}}:")[0].strip()
                 c = block.split("{{char}}:")[1].split("<START>")[0].strip()
                 if u and u == c:
-                    warnings.append(f"⚠️ description 第 {i} 个 <START> 块 {{user}} 与 {{char}} 同句复读——示例污染，删掉或改手写对话轮次")
+                    warnings.append(f"⚠️ {src} 第 {i} 个 <START> 块 {{user}} 与 {{char}} 同句复读——示例污染，删掉或改手写对话轮次")
 
     # 1c. PList 施工注释残留（2026-08-26：make 脚本曾把「# PList 基础版——需按角色精修」写进 prompt，
     #     施工注释直接暴露给模型）
