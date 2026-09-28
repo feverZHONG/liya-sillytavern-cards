@@ -16,7 +16,7 @@
 | `first_mes` | 场景化开场（开局事件+动作描写+对话钩子） | 临时（只发一次，但开局定风格） |
 | `character_book` | 世界书条目（可选） | 按需触发 |
 
-> ⚠️ **2026-09-26 口径更新**：示例写进 `description` 是**老形状**（官方 Seraphina 示范卡也这么写），但示例搬进 `mes_example` 才拿得到「真对话轮次 ＋ 预算门」两样。逐格去向与搬迁工具 → `tavern-card-refinement` skill「槽位归位」节。
+> ⚠️ **2026-09-26 口径更新**：示例写进 `description` 是**老形状**（官方 Seraphina 示范卡也这么写），但示例搬进 `mes_example` 才拿得到「真对话轮次 ＋ 预算门」两样。逐格去向与搬迁工具 → `tavern-card-refinement/references/slot-mechanics.md` §槽位归位。
 
 > ✅ **2026-09-27 复核（官方出处）**：官方文档 `usage/core-concepts/characterdesign` 原文——描述「加入角色描述**及其它相关信息**……上下文里永远带着，所以**所有重要事实都放这儿**」，「长度随意（200 或 2000 token）、**格式任意**（自由文本、伪代码对话风格皆可）」；酒馆自带示范卡 `default/content/default_Seraphina.png` 的描述实测＝`[Seraphina's Personality= …]` ＋ `[Seraphina's body= …]` ＋ `<START>` 示例 ＋ `[Genre: …; Tags: …; Scenario: …]` 尾行（拆 PNG `chara` chunk 读的原文）——**PList 标签块进描述合法且有官方出处**，判据是**内容覆盖**不是文体。另：角色设定摘要官方英文名 **Personality summary**（性格简述）；角色备注官方定义＝「在指定深度注入、**通常用来反复强化某些角色特质**」（所以备注收敛成只留 `Personality` 一行正合定义）。**酒馆没有「简介」字段**（zh-cn 语言包零命中「简介」）——社区口语的「角色简介」是卡本体统称，别照这个词去找格子。
 
@@ -49,7 +49,7 @@ mes_example:  <START>
 ```
 
 > 2026-09-26 归位：示例写进 `description` 是**老形状**；`mes_example` 才是 ST 的示例专槽
-> （解析成真对话轮次 ＋ 预算门）。搬迁工具与逐格口径 → `tavern-card-refinement` skill「槽位归位」节。
+> （解析成真对话轮次 ＋ 预算门）。搬迁工具与逐格口径 → `tavern-card-refinement/references/slot-mechanics.md` §槽位归位。
 
 - 素材来源：角色设定/互动手册里已有的示例；作品语音台词；对话样本
 - 对话要体现：口癖（同一句尾助词反复出现）、句式习惯、语气——示例里就要让口癖自然出现
@@ -83,7 +83,7 @@ mes_example:  <START>
 ## 反模式 · 实测清单
 
 > 来源：2026-09 一张卡连做**八轮可用性验收**（每轮 2 个隔离样本、固定话术、含多轮追问）。
-> 每条都有实测数字支撑，不是经验之谈。怎么测 → `tavern-card-refinement`「交付前的可用性验收」。
+> 每条都有实测数字支撑，不是经验之谈。怎么测 → `tavern-card-refinement/references/usability-acceptance.md`。
 
 1. **别替模型指出口**。规则里写「讲不出口时就说 X」＝把所有规则的出口钉在同一句话上。实测：六句里五句收在同一格（样本原话「像一台只会转到同一格的转盘」）。**只写约束（不能讲什么、不能展示什么），出口让模型自己找。**
 2. **示例比规则管用**。动作描写、收尾节奏这类「像不像」的东西，写进 post_history 压不住——样本在**明知要轮换的前提下仍会收敛**到最省力的那个动作。**改 `<START>` 示例立刻见效**（实测：示例动作从「翅膀」换掉，翅膀起手 7/7 → 0-1/7）。
