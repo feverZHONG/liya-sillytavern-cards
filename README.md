@@ -120,7 +120,12 @@ python3 scripts/embed_tavern_card.py 你的卡.json avatar.png card.png
 
 ## 许可
 
-MIT（方法与工具）。「角色设定写作模板 v1.2」为 fever钟 作品，随仓库分发，转载请注明出处。
+**双许可**——文档与代码分开：
+
+- **代码**（`scripts/` 下的文件）：**MIT** —— 拿去用、改、再发，保留版权声明即可。
+- **文档**（`SKILL.md`、`references/`、本 README 的正文）：**[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)** —— 可以自由使用、改编、连商用都行，**但要署名**（莉娅 / [@feverZHONG](https://github.com/feverZHONG)）并注明来源。
+
+两份许可的全文：`LICENSE`（MIT）／`LICENSE-DOCS`（CC BY 4.0）。
 
 ---
 
