@@ -1,7 +1,7 @@
 ---
 name: sillytavern-cards
 tier: T2  # T分级: T2=直接做 / T1=先请示 / T0=一律拒
-description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 写法、机制清单、三个 Python 工具、可照着走的完整实例。触发：酒馆、SillyTavern、角色卡、写卡、卡格式。
+description: 写 SillyTavern 角色卡——V2/V3 格式、PList+Ali:Chat 写法。触发：酒馆、角色卡。
 ---
 
 # 酒馆角色卡 · SillyTavern Cards
@@ -67,7 +67,7 @@ description: 写 SillyTavern 角色卡——V2/V3 格式规格、PList+Ali:Chat 
 0. **只有资料、组织不成设定？** 先跑 `references/10-setting-writing-template.md` 把资料变成设定文本——这是写卡的上游，产出可直接喂 PList/Ali:Chat
 1. `make_tavern_card.py <角色> --src <角色目录的父目录>` → 卡 JSON 初稿
 2. **精修三处**（自动生成只是基础版）：`first_mes` 场景化改写 / PList 标签精修 / `<START>` 示例补动作描写
-3. **对照互动手册（`AGENTS.md`）逐条落实硬规则**——system_prompt 收口癖/句式限制，post_history_instructions 收对话节奏/禁止事项（漏一条，卡里的人就不像）
+3. **对照互动手册（`examples/白棠/AGENTS.md`）逐条落实硬规则**——system_prompt 收口癖/句式限制，post_history_instructions 收对话节奏/禁止事项（漏一条，卡里的人就不像）
 4. `validate_tavern_card.py 卡.json --deep` → 必须 ✅ V2（V3 同样跑）
 5. **token 统计**：validate 默认输出「累计/恒定」；酒馆界面实测值可登记进 `extensions.<你的命名空间>.token_stats`
 6. 可选：`embed_tavern_card.py` → PNG 卡

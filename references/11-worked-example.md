@@ -66,7 +66,7 @@ python3 scripts/make_tavern_card.py 白棠 --src examples \
 
 精修后的成品：`examples/白棠-卡.json`（`character_version: 0.2`）。
 
-精修时对照 `AGENTS.md` 逐条落实硬规则——**漏一条，卡里的人就不像**：
+精修时对照 `../examples/白棠/AGENTS.md` 逐条落实硬规则——**漏一条，卡里的人就不像**：
 「时间必须说准数」进 system_prompt；「被夸不接」「打烊后句子长一句」进 post_history_instructions。
 
 ## 3. 校验
